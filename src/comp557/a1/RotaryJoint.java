@@ -29,20 +29,8 @@ public class RotaryJoint extends GraphNode{
 		
 		gl.glPushMatrix();
 		//Transformation starts here
-		switch(axis) {
-			case 'x':
-				gl.glTranslated(translation.getValue(), 0, 0);
-				break;
-			case 'y':
-				gl.glTranslated(0, translation.getValue(), 0);
-				break;
-			case 'z':
-				gl.glTranslated(0, 0, translation.getValue());
-				break;
-				
-			default:
-				break;
-		}
+		
+		//Apply translation first then rotation
 		
 		switch(axis) {
 		case 'x':
@@ -58,6 +46,22 @@ public class RotaryJoint extends GraphNode{
 		default:
 			break;
 	}
+		switch(axis) {
+			case 'x':
+				gl.glTranslated(translation.getValue(), 0, 0);
+				break;
+			case 'y':
+				gl.glTranslated(0, translation.getValue(), 0);
+				break;
+			case 'z':
+				gl.glTranslated(0, 0, translation.getValue());
+				break;
+				
+			default:
+				break;
+		}
+		
+		
 		
 		GraphNode.glut.glutWireCube(1);
 		super.display(drawable);

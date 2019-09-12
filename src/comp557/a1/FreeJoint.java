@@ -33,10 +33,11 @@ public class FreeJoint extends GraphNode {
 		
 		gl.glPushMatrix();
 		//Transformation starts here
-		gl.glTranslated(tx.getValue(), ty.getValue(), tz.getValue());
 		gl.glRotated(rx.getValue(), 1, 0, 0);
 		gl.glRotated(ry.getValue(), 0, 1, 0);
 		gl.glRotated(rz.getValue(), 0, 0, 1);
+		gl.glTranslated(tx.getValue(), ty.getValue(), tz.getValue());
+		
 		
 		GraphNode.glut.glutWireTeapot(0);
 		super.display(drawable);
