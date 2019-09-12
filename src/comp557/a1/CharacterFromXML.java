@@ -14,6 +14,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import mintools.parameters.DoubleParameter;
+
 /**
  * Loads an articulated character hierarchy from an XML file. 
  */
@@ -78,10 +80,17 @@ public class CharacterFromXML {
 		} else if ( type.equals("spherical") ) {
 			// position is optional (ignored if missing) but should probably be a required attribute!​‌​​​‌‌​​​‌‌​​​‌​​‌‌‌​​‌
 			// Could add optional attributes for limits (to all joints)
+			
+			Tuple3d orientation = getTuple3dAttr(dataNode, "orientation");
+			float min = Float.valueOf(dataNode.getAttributes().getNamedItem("min").getNodeValue());
+			float max = Float.valueOf(dataNode.getAttributes().getNamedItem("max").getNodeValue());
 
-//			SphericalJoint joint = new SphericalJoint( name );
-//			if ( (t=getTuple3dAttr(dataNode,"position")) != null ) joint.setPosition( t );			
-//			return joint;
+			
+			SphericalJoint joint = new SphericalJoint(name, new DoubleParameter(name + "rx", orientation.x, min, max),
+					new DoubleParameter(name + "ry", orientation.y, min, max), 
+					new DoubleParameter(name + "rz", orientation.z, min, max));
+			if ( (t=getTuple3dAttr(dataNode,"position")) != null ) joint.setPosition( t );			
+			return joint;
 			
 		} else if ( type.equals("rotary") ) {
 			// position and axis are required... passing null to set methods
