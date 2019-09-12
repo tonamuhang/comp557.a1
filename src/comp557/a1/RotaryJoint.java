@@ -9,14 +9,14 @@ public class RotaryJoint extends GraphNode{
 	DoubleParameter translation, rotation;
 	char axis;
 
-	public RotaryJoint(String name, DoubleParameter translation, DoubleParameter rotation, double min, double max, char axis) {
+	public RotaryJoint(String name, DoubleParameter translation, DoubleParameter rotation, char axis) {
 		super(name);
 		// TODO Auto-generated constructor stub
 		this.translation = translation;
 		this.rotation = rotation;
 		this.axis = axis;
 		
-		dofs.add(new DoubleParameter(name + "r", 0, min, max));
+		dofs.add(rotation);
 	}
 	
 	

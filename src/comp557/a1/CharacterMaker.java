@@ -16,15 +16,17 @@ public class CharacterMaker {
 		// some code to create a charcter and return the root node.
 		FreeJoint root = new FreeJoint("root");
 		
-		DoubleParameter rotaryTranslation = new DoubleParameter("rjt", 5, -5, 5);
-		DoubleParameter rotaryRotation = new DoubleParameter("rjr", 0, -90, 90);
+		
 		
 		//Create a rotary joint node that moves/rotates in a given axis
-		RotaryJoint leg = new RotaryJoint("leg", rotaryTranslation, rotaryRotation, 
-				rotaryRotation.getMinimum(), rotaryRotation.getMaximum(), 'y');
+		RotaryJoint leg = new RotaryJoint("leg", new DoubleParameter("rjt", 5, -5, 5), 
+				new DoubleParameter("rjr", 0, -90, 90), 'y');
+		
+		SphericalJoint joint = new SphericalJoint("joint", new DoubleParameter("jointx", 0, -45, 45), 
+				new DoubleParameter("jointy", 0, -45, 45), new DoubleParameter("jointz", 0, -45, 45));
 		
 		root.add(leg);
-		
+		leg.add(joint);
 		
 		return root;
 	}
