@@ -17,7 +17,7 @@ public class CharacterMaker {
 		FreeJoint root = new FreeJoint("root");
 		
 		
-		RotaryJoint leg = new RotaryJoint("leg", root.tx, root.rx, -2, 2, 'x');
+		RotaryJoint leg = new RotaryJoint("leg", root.ty, root.ry, -70, 70, 'y');
 		root.add(leg);
 		
 		
