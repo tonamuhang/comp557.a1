@@ -4,7 +4,7 @@ import mintools.parameters.DoubleParameter;
 
 public class CharacterMaker {
 
-	static public String name = "CHARACTER NAME - YOUR NAME AND STUDENT NUMBER";
+	static public String name = "LadyBugy - Muhang Li 260736135";
 	
 	/** 
 	 * Creates a character.
@@ -16,8 +16,13 @@ public class CharacterMaker {
 		// some code to create a charcter and return the root node.
 		FreeJoint root = new FreeJoint("root");
 		
+		DoubleParameter rotaryTranslation = new DoubleParameter("rjt", 5, -5, 5);
+		DoubleParameter rotaryRotation = new DoubleParameter("rjr", 0, -90, 90);
 		
-		RotaryJoint leg = new RotaryJoint("leg", root.ty, root.ry, -70, 70, 'y');
+		//Create a rotary joint node that moves/rotates in a given axis
+		RotaryJoint leg = new RotaryJoint("leg", rotaryTranslation, rotaryRotation, 
+				rotaryRotation.getMinimum(), rotaryRotation.getMaximum(), 'y');
+		
 		root.add(leg);
 		
 		

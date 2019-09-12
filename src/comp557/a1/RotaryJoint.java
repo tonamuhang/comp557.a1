@@ -25,7 +25,7 @@ public class RotaryJoint extends GraphNode{
 		GL2 gl = drawable.getGL().getGL2();
 		// TODO: implement the rest of this methods
 		gl.glColor3f(1, 1, 1);
-		GraphNode.glut.glutWireCube(0);
+		
 		
 		gl.glPushMatrix();
 		//Transformation starts here
@@ -59,6 +59,7 @@ public class RotaryJoint extends GraphNode{
 			break;
 	}
 		
+		GraphNode.glut.glutWireCube(1);
 		super.display(drawable);
 		//transformation ends here
 		gl.glPopMatrix();
