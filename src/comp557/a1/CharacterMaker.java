@@ -22,7 +22,7 @@ public class CharacterMaker {
 		
 		//Create a rotary joint node that moves/rotates in a given axis
 		RotaryJoint leg = new RotaryJoint("leg", new DoubleParameter("rjt", 2, -5, 5), 
-				new DoubleParameter("rjr", 0, -90, 90), 'y');
+				new DoubleParameter("rjr", 0, -90, 90));
 		
 		//Create a speherical joint node that only rotates to the set orientation
 		SphericalJoint joint = new SphericalJoint("joint", new DoubleParameter("jointx", 0, -45, 45), 

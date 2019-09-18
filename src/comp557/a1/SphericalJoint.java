@@ -40,7 +40,7 @@ public class SphericalJoint extends GraphNode{
 		gl.glRotated(rx.getValue(), 1, 0, 0);
 		gl.glRotated(ry.getValue(), 0, 1, 0);
 		gl.glRotated(rz.getValue(), 0, 0, 1);
-		gl.glTranslated(position.v1, position.v2, position.v3);//Temp
+		gl.glTranslated(position.v1, position.v2, position.v3);
 		
 		super.display(drawable);
 		gl.glPopMatrix();

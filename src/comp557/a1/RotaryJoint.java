@@ -1,4 +1,6 @@
 package comp557.a1;
+import javax.vecmath.Tuple3d;
+
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 
@@ -9,16 +11,23 @@ public class RotaryJoint extends GraphNode{
 	DoubleParameter translation, rotation;
 	char axis;
 
-	public RotaryJoint(String name, DoubleParameter translation, DoubleParameter rotation, char axis) {
+	public RotaryJoint(String name, DoubleParameter translation, DoubleParameter rotation) {
 		super(name);
 		// TODO Auto-generated constructor stub
 		this.translation = translation;
 		this.rotation = rotation;
-		this.axis = axis;
+		
 		
 		dofs.add(rotation);
 	}
 	
+	public void setAxis(String axis) {
+		this.axis = axis.toCharArray()[0];
+	}
+	
+	public void setPosition(Tuple3d position) {
+		
+	}
 	
 	@Override
 	public void display(GLAutoDrawable drawable) {
