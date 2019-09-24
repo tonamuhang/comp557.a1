@@ -23,12 +23,11 @@ public class GeometryGraphTriangle extends GraphNode{
 		gl.glColor3f(color.v1, color.v2, color.v3);
 		
 		gl.glPushMatrix();
-		
-		gl.glRotated(90, 1, 0, 0);
-		gl.glScalef(scale.v1, scale.v2, scale.v3);
 		gl.glTranslated(location.v1, location.v2, location.v3);//Temp
+		gl.glScalef(scale.v1, scale.v2, scale.v3);
 		
-		GraphNode.glut.glutWireCone(2, 7, 10, 10);
+		
+		GraphNode.glut.glutSolidCone(1, 2, 10, 10);
 		super.display(drawable);
 		gl.glPopMatrix();
 	}

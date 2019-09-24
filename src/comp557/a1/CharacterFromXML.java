@@ -14,6 +14,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.jogamp.openal.sound3d.Vec3f;
+
 import mintools.parameters.DoubleParameter;
 
 /**
@@ -76,6 +78,7 @@ public class CharacterFromXML {
 		Tuple3d t;
 		if ( type.equals("free") ) {
 			FreeJoint joint = new FreeJoint( name );
+			
 			return joint;
 		} else if ( type.equals("spherical") ) {
 			// position is optional (ignored if missing) but should probably be a required attribute!​‌​​​‌‌​​​‌‌​​​‌​​‌‌‌​​‌
@@ -89,18 +92,24 @@ public class CharacterFromXML {
 			SphericalJoint joint = new SphericalJoint(name, new DoubleParameter(name + "rx", orientation.x, min, max),
 					new DoubleParameter(name + "ry", orientation.y, min, max), 
 					new DoubleParameter(name + "rz", orientation.z, min, max));
-			if ( (t=getTuple3dAttr(dataNode,"position")) != null ) joint.setPosition( t );			
+			if ( (t=getTuple3dAttr(dataNode,"translation")) != null ) joint.setPosition( t );			
 			return joint;
 			
 		} else if ( type.equals("rotary") ) {
 			// position and axis are required... passing null to set methods
 			// likely to cause an execption (perhaps OK)
 			
-//			Hinge joint = new Hinge( name );
-//			joint.setPosition( getTuple3dAttr(dataNode,"position") );
-//			joint.setAxis( getTuple3dAttr(dataNode,"axis") );
-//			return joint;
-			
+			float translation = Float.valueOf(dataNode.getAttributes().getNamedItem("translation").getNodeValue());
+			float rotation = Float.valueOf(dataNode.getAttributes().getNamedItem("rotation").getNodeValue());
+			float min = Float.valueOf(dataNode.getAttributes().getNamedItem("min").getNodeValue());
+			float max = Float.valueOf(dataNode.getAttributes().getNamedItem("max").getNodeValue());
+			String axis = dataNode.getAttributes().getNamedItem("axis").getNodeValue();
+			RotaryJoint joint = new RotaryJoint(name, rotation);
+			joint.setMinMax(min, max);
+			joint.setAxis(axis);
+			joint.setTranslation(translation);
+//			joint.setRotation(rotation);
+			return joint;
 		}
 		return null;
 	}
@@ -112,20 +121,27 @@ public class CharacterFromXML {
 	 */
 	public static GraphNode createGeom( Node dataNode ) {
 		String type = dataNode.getAttributes().getNamedItem("type").getNodeValue();
+		
 		String name = dataNode.getAttributes().getNamedItem("name").getNodeValue();
-		Tuple3d t;
-		if ( type.equals("box" ) ) {
-//			BodyBox geom = new BodyBox( name );
+		Tuple3d value = getTuple3dAttr(dataNode, "color");
+		Vec3f color = new Vec3f((float)value.x, (float)value.y, (float)value.z);
+		value = getTuple3dAttr(dataNode, "location");
+		Vec3f location = new Vec3f((float)value.x, (float)value.y, (float)value.z);
+		value = getTuple3dAttr(dataNode, "scale");
+		Vec3f scale = new Vec3f((float)value.x, (float)value.y, (float)value.z);
+		if ( type.equals("triangle" ) ) {
+			
+			GeometryGraphTriangle geom = new GeometryGraphTriangle(name, location, scale, color);
 //			if ( (t=getTuple3dAttr(dataNode,"center")) != null ) geom.setCentre( t );
 //			if ( (t=getTuple3dAttr(dataNode,"scale")) != null ) geom.setScale( t );
 //			if ( (t=getTuple3dAttr(dataNode,"color")) != null ) geom.setColor( t );
-//			return geom;
+			return geom;
 		} else if ( type.equals( "sphere" )) {
-//			BodySphere geom = new BodySphere( name );				
+			GeometryGraphCircle geom = new GeometryGraphCircle(name, location, scale, color);			
 //			if ( (t=getTuple3dAttr(dataNode,"center")) != null ) geom.setCentre( t );
 //			if ( (t=getTuple3dAttr(dataNode,"scale")) != null ) geom.setScale( t );
 //			if ( (t=getTuple3dAttr(dataNode,"color")) != null ) geom.setColor( t );
-//			return geom;	
+			return geom;	
 		}
 		return null;		
 	}

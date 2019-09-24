@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doc>
+	
+	<node type="free" name="root">
+		<geom type="sphere" name="body" scale="4 2 4" color="1 0 0" location="0 0 0"></geom>
+		<node name="head" type="spherical" translation="4 0 0" min="-30" max="30" axis="x" orientation="0 0 0">
+			<geom type="sphere" scale="1.5 1.5 1.5" name="head" color="0.5 0.5 0.5" location="0 0 0"></geom>
+			<geom name="leye" color="1 1 1" scale="0.5 0.5 0.5"
+				type="sphere" location="2 2 2">
+			</geom>
+			<geom color="1 1 1" location="2 2 -2" name="reye" scale="0.5 0.5 0.5" type="sphere"></geom></node>
+		<node type="rotary" name="lelb" min="0" max="30" axis="x" translation="3" rotation="15">
+			<geom type="sphere" name="relbow" scale="0.3 0.3 1" color="1 1 1" location="0 0 3"></geom>
+		</node>
+		<node name="relb" type="rotary" axis="x" max="0" min="-30"
+			translation="3" rotation="-15">
+			<geom name="relbow" scale="0.3 0.3 1" location="0 0 -3" color="1 1 1" type="sphere"></geom>
+			<node type="spherical" name="rjoint" orientation="0 0 0"
+				max="5" min="-5" translation="0 0 -4">
+				<geom name="hand" color="1 1 1" location="0 0 0" scale="0.3 0.3 0.3" type="sphere"></geom>
+			</node>
+		</node></node></doc>

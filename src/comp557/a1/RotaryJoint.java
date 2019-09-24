@@ -10,22 +10,32 @@ public class RotaryJoint extends GraphNode{
 
 	DoubleParameter translation, rotation;
 	char axis;
-
-	public RotaryJoint(String name, DoubleParameter translation, DoubleParameter rotation) {
+	float min, max;
+	
+	public RotaryJoint(String name, double rotation) {
 		super(name);
 		// TODO Auto-generated constructor stub
-		this.translation = translation;
-		this.rotation = rotation;
+		translation = new DoubleParameter("t", 0, -5, 5);
+		this.rotation = new DoubleParameter("r", rotation, -180, 180);
 		
-		
-		dofs.add(rotation);
+		dofs.add(this.rotation);
 	}
 	
 	public void setAxis(String axis) {
 		this.axis = axis.toCharArray()[0];
 	}
 	
-	public void setPosition(Tuple3d position) {
+	public void setMinMax(float min, float max) {
+		this.rotation.setMinimum((double)min);
+		this.rotation.setMaximum((double)max);
+	}
+	
+	public void setTranslation(double translation) {
+		this.translation.setValue(translation);
+	}
+	
+	public void setRotation(double rotation) {
+		this.rotation.setValue(rotation);
 		
 	}
 	
@@ -43,7 +53,8 @@ public class RotaryJoint extends GraphNode{
 		
 		switch(axis) {
 		case 'x':
-			gl.glRotated(rotation.getValue(), 1, 0, 0);
+			
+			gl.glRotated(this.rotation.getValue(), 1, 0, 0);
 			break;
 		case 'y':
 			gl.glRotated(rotation.getValue(), 0, 1, 0);
@@ -71,8 +82,6 @@ public class RotaryJoint extends GraphNode{
 		}
 		
 		
-		
-		GraphNode.glut.glutWireCube(1);
 		super.display(drawable);
 		//transformation ends here
 		gl.glPopMatrix();

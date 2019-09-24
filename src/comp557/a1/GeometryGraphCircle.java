@@ -24,11 +24,10 @@ public class GeometryGraphCircle extends GraphNode{
 		
 		gl.glPushMatrix();
 		
-		
 		gl.glScalef(scale.v1, scale.v2, scale.v3);
 		gl.glTranslated(location.v1, location.v2, location.v3);//Temp
 		
-		GraphNode.glut.glutWireSphere(3, 10, 10);
+		GraphNode.glut.glutSolidSphere(1, 10, 10);
 		super.display(drawable);
 		gl.glPopMatrix();
 	}
